@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block name %}
+<title>Edit Task - TaskMate</title>
+{% endblock %}
+
+{% block title %}
+<div class="container">
+    <h1 class="text-center">Edit Task</h1>
+</div>
+{% endblock %}
+{% block content %}    
+{% if task.active_user == request.user%}
+    <form method="post" class="row justify-content-center align-items-center g-2" style="text-align:center;">
+    {% csrf_token %}
+
+    <!-- Label -->
+    <div class="col-auto">
+        <label for="title" class="col-form-label fw-bold">Edit Task</label>
+    </div>
+
+    <!-- Input field -->
+    <div class=" col-md-6">
+        <input type="text" id="title" name="title" class="form-control"
+            value="{{ task.title }}" required>
+    </div>
+
+    <!-- Submit button -->
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+    </form>
+
+{% else %}
+    <h3 class="text-center">You are not authorized to edit this task.</h3>
+{% endif %}
+{% endblock %}
