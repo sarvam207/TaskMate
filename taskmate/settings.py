@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrisb.auth',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap5"
 ]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
