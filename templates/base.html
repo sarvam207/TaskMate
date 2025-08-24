@@ -1,21 +1,96 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     {% block name %} {% endblock %}
 
+    <style>
+      /* Custom Premium Dark Theme */
+      body {
+        background-color: #121212 !important;
+        color: #E0E0E0;
+        font-family: 'Poppins', sans-serif;
+      }
+      .navbar {
+        background-color: #1a1a1a !important;
+        border-bottom: 1px solid #282828;
+      }
+      .navbar-brand img {
+        transition: transform 0.3s ease-in-out;
+      }
+      .navbar-brand img:hover {
+        transform: rotate(15deg);
+      }
+      .navbar-nav .nav-link {
+        color: #BDBDBD !important;
+        position: relative;
+        transition: color 0.3s ease, transform 0.2s ease;
+      }
+      .navbar-nav .nav-link:hover {
+        color: #fff !important;
+        transform: translateY(-2px);
+      }
+      .navbar-nav .nav-link.active {
+        color: #6D28D9 !important;
+        font-weight: 500;
+      }
+      .navbar-nav .nav-link.active::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -5px;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 2px;
+        background-color: #6D28D9;
+        border-radius: 2px;
+      }
+      .btn {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(109, 40, 217, 0.2);
+      }
+      .btn-outline-success {
+        border-color: #4CAF50;
+        color: #4CAF50;
+      }
+      .btn-outline-success:hover {
+        background-color: #4CAF50;
+        color: #fff;
+      }
+      .btn-outline-primary {
+        border-color: #6D28D9;
+        color: #6D28D9;
+      }
+      .btn-outline-primary:hover {
+        background-color: #6D28D9;
+        color: #fff;
+      }
+      .bg-light {
+        background-color: #121212 !important;
+      }
+      .text-white {
+        color: #E0E0E0 !important;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'index' %}"> 
-          <img src="{% static 'images/logo2.png' %}" alt="TaskMate" width="30" height="30"> TaskMate
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'images/logo2.png' %}" alt="TaskMate" width="30" height="30"> Task<span style="color:#6D28D9;">Mate</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -38,7 +113,8 @@
           {% if user.is_authenticated %}
             <div class="d-flex align-items-center ms-auto">
               <span class="navbar-text me-3 text-white">
-                Welcome, <strong>{{ user.username }}</strong> !</span>
+                Welcome, <strong>{{ user.username }}</strong>!
+              </span>
               <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">
@@ -57,14 +133,13 @@
         </div>
       </div>
     </nav>
-  </head>
-  <body class="bg-light">
+    
+    {% block carousel %} {% endblock %}
+    
     {% block title %} {% endblock %}
 
     {% block content %} {% endblock %}
 
-    {% block carousel %} {% endblock %}
-    
     {% block staticimage %} {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
