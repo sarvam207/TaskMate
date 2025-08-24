@@ -45,37 +45,84 @@
   </div>
 </form>
 </br>
-<!-- Task List -->
-<table class="table table-striped text-center row">
-  <thead>
-    <tr class="row">
-      <th class="col-lg-3">TaskName</th>
-      <th class="col-lg-6">Status</th>
-      <th class="col-lg-1">Edit</th>
-      <th class="col-lg-2">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-  </br>
-    {% for obj in all_tasks %}
-      <tr class="row">
-        {% if obj.completed %}
-          <td class="col-lg-3"><del>{{ obj.title }}</del></td>
-          <!-- Completed task button -->
-          <td class="col-lg-6"><a href="{% url 'task_pending' obj.id %}"><button type="button" class="btn btn-success" style="width: 120px; min-width: 120px;">Completed</button></a></td>
-        {% else %}
-          <td class="col-lg-3">{{ obj.title }}</td>
-          <!-- Not completed task button -->
-          <td class="col-lg-6"><a href="{% url 'task_done' obj.id %}"><button type="button" class="btn btn-warning" style="width: 120px; min-width: 120px;">Pending</button></a></td>
-        {% endif %}
-        <!-- Edit and Delete buttons -->
-        <td class="col-lg-1"> <a href="{% url 'edit_task' obj.id %}"><button type="button" class="btn btn-secondary" style="width: 120px; min-width: 120px;">Edit</button></a> </td>
-        <td class="col-lg-2"> <a href="{% url 'delete_task' obj.id %}"><button type="button" class="btn btn-danger" style="width: 120px; min-width: 120px;">Delete</button></a> </td>
+<!-- Task List (Responsive for Vertical/Small Screens) -->
+<div class="table-responsive">
+  <table class="table table-striped text-center align-middle">
+    <thead class="d-none d-lg-table-header-group">
+      <tr>
+        <th>TaskName</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
-    {% endfor %}
-  </br>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for obj in all_tasks %}
+        <!-- Desktop Row -->
+        <tr class="d-none d-lg-table-row">
+          {% if obj.completed %}
+            <td><del>{{ obj.title }}</del></td>
+            <td>
+              <a href="{% url 'task_pending' obj.id %}">
+              <button type="button" class="btn btn-success btn-sm py-1 px-2" style="font-size:0.80rem; min-width:70px; max-width:90px;">Completed</button>
+              </a>
+            </td>
+            {% else %}
+            <td>{{ obj.title }}</td>
+            <td>
+              <a href="{% url 'task_done' obj.id %}">
+              <button type="button" class="btn btn-warning btn-sm py-1 px-2" style="font-size:0.80rem; min-width:70px; max-width:90px;">Pending</button>
+              </a>
+            </td>
+            {% endif %}
+            <td>
+            <a href="{% url 'edit_task' obj.id %}">
+              <button type="button" class="btn btn-secondary btn-sm py-1 px-2" style="font-size:0.80rem; min-width:60px; max-width:80px;">Edit</button>
+            </a>
+            </td>
+            <td>
+            <a href="{% url 'delete_task' obj.id %}">
+              <button type="button" class="btn btn-danger btn-sm py-1 px-2" style="font-size:0.80rem; min-width:60px; max-width:80px;">Delete</button>
+            </a>
+            </td>
+          </tr>
+          <!-- Mobile Card -->
+          <tr class="d-table-row d-lg-none">
+            <td colspan="4">
+            <div class="card mb-2">
+              <div class="card-body p-2">
+              <h5 class="card-title mb-2" style="font-size:1.1rem;">
+                {% if obj.completed %}
+                <del>{{ obj.title }}</del>
+                {% else %}
+                {{ obj.title }}
+                {% endif %}
+              </h5>
+              <div class="d-flex flex-wrap gap-2 justify-content-center">
+                {% if obj.completed %}
+                <a href="{% url 'task_pending' obj.id %}">
+                  <button type="button" class="btn btn-success btn-sm py-1 px-2" style="font-size:0.85rem;">Completed</button>
+                </a>
+                {% else %}
+                <a href="{% url 'task_done' obj.id %}">
+                  <button type="button" class="btn btn-warning btn-sm py-1 px-2" style="font-size:0.85rem;">Pending</button>
+                </a>
+                {% endif %}
+                <a href="{% url 'edit_task' obj.id %}">
+                <button type="button" class="btn btn-secondary btn-sm py-1 px-2" style="font-size:0.85rem;">Edit</button>
+                </a>
+                <a href="{% url 'delete_task' obj.id %}">
+                <button type="button" class="btn btn-danger btn-sm py-1 px-2" style="font-size:0.85rem;">Delete</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 <!-- Pagination controls -->
 <nav aria-label="...">
   <ul class="pagination justify-content-center">
