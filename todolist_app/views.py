@@ -5,7 +5,43 @@ from todolist_app.forms import TaskForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 # Create your views here.
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.conf import settings
+import json
+
+def contact_form_submit(request):
+    if request.method == 'POST':
+        try:
+            # Decode the JSON data from the request body
+            data = json.loads(request.body)
+            name = data.get('name')
+            email = data.get('email')
+            message = data.get('message')
+
+            # Basic validation
+            if not all([name, email, message]):
+                return JsonResponse({'success': False, 'message': 'All fields are required.'}, status=400)
+
+            # Send the email
+            send_mail(
+                'Contact Form Submission from TaskMate',
+                f'Name: {name}\nEmail: {email}\nMessage: {message}',
+                settings.EMAIL_HOST_USER, # Sender's email
+                ['sarvam207@gmail.com'],  # Recipient's email
+                fail_silently=False,
+            )
+
+            return JsonResponse({'success': True, 'message': 'Message sent successfully!'})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Invalid JSON data.'}, status=400)
+
+    # Return a 405 error if the method is not POST
+    return JsonResponse({'success': False, 'message': 'Invalid request method.'}, status=405)
 @login_required
 def todolist(request):
 

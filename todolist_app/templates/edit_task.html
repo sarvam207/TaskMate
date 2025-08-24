@@ -1,36 +1,50 @@
 {% extends "base.html" %}
+{% load static %}
 {% block name %}
 <title>Edit Task - TaskMate</title>
 {% endblock %}
 
 {% block title %}
-<div class="container">
-    <h1 class="text-center">Edit Task</h1>
+<div class="container my-5 animate__animated animate__fadeInDown">
+  <h1 class="text-center fw-bold display-4">
+    <span style="color: #E0E0E0;">Edit</span><span style="color: #6D28D9;"> Task</span>
+  </h1>
+  <p class="text-center text-muted">Make your changes and save them.</p>
 </div>
 {% endblock %}
-{% block content %}    
-{% if task.active_user == request.user%}
-    <form method="post" class="row justify-content-center align-items-center g-2" style="text-align:center;">
-    {% csrf_token %}
 
-    <!-- Label -->
-    <div class="col-auto">
-        <label for="title" class="col-form-label fw-bold">Edit Task</label>
+{% block content %}
+<div class="container mt-4 animate__animated animate__fadeInUp">
+  {% if task.active_user == request.user %}
+    <div class="card bg-dark text-white p-4 shadow-lg" style="border: 1px solid #282828; border-radius: 1rem;">
+      <form method="post" class="row justify-content-center align-items-center g-3">
+        {% csrf_token %}
+
+        <div class="col-12 text-center">
+          <label for="title" class="form-label fw-bold h5">Task Title</label>
+        </div>
+
+        <div class="col-md-8">
+          <input type="text"
+                 id="title"
+                 name="title"
+                 class="form-control form-control-lg bg-secondary-subtle border-0 text-white"
+                 style="border-radius: 0.5rem;"
+                 value="{{ task.title }}"
+                 required>
+        </div>
+
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary btn-lg mt-3">
+            Save Changes
+          </button>
+        </div>
+      </form>
     </div>
-
-    <!-- Input field -->
-    <div class=" col-md-6">
-        <input type="text" id="title" name="title" class="form-control"
-            value="{{ task.title }}" required>
+  {% else %}
+    <div class="alert alert-danger text-center animate__animated animate__fadeIn" role="alert">
+      <h3 class="fw-bold mb-0">You are not authorized to edit this task.</h3>
     </div>
-
-    <!-- Submit button -->
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-    </div>
-    </form>
-
-{% else %}
-    <h3 class="text-center">You are not authorized to edit this task.</h3>
-{% endif %}
+  {% endif %}
+</div>
 {% endblock %}

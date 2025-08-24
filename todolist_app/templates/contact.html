@@ -1,26 +1,90 @@
-{%extends "base.html"%}
-
+{% extends "base.html" %}
 {% block name %}
-<title>Contact - TaskMate</title>
+<title>Contact Us - TaskMate</title>
 {% endblock %}
 
 {% block title %}
-<div class="container">
-  <h1 class="text-center">Contact Us</h1>
+<div class="container my-5 animate__animated animate__fadeInDown">
+  <h1 class="text-center fw-bold display-4">
+    <span style="color: #E0E0E0;">Contact</span><span style="color: #6D28D9;"> Us</span>
+  </h1>
+  <p class="text-center text-muted">We'd love to hear from you!</p>
 </div>
 {% endblock %}
 
 {% block content %}
-<div> {{variable_key}}
-</div>
-{% endblock %}
-
-{% block staticimage %}
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-center align-items-center">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Sample Unsplash Image" class="img-fluid" style="max-width: 100%; height: auto;">
+<div class="container mt-4 animate__animated animate__fadeInUp">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card bg-dark text-white p-4 shadow-lg" style="border: 1px solid #282828; border-radius: 1rem;">
+        <div class="card-body">
+          <p class="text-center mb-4">
+            If you have any questions, feedback, or just want to say hello, please fill out the form below.
+          </p>
+          <form id="contactForm">
+            {% csrf_token %}
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <div class="mb-3">
+              <label for="name" class="form-label fw-bold">Your Name</label>
+              <input type="text" class="form-control bg-secondary-subtle border-0 text-white" id="name" placeholder="Enter your name" required>
             </div>
+            <div class="mb-3">
+              <label for="email" class="form-label fw-bold">Email Address</label>
+              <input type="email" class="form-control bg-secondary-subtle border-0 text-white" id="email" placeholder="name@example.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label fw-bold">Message</label>
+              <textarea class="form-control bg-secondary-subtle border-0 text-white" id="message" rows="5" placeholder="Enter your message" required></textarea>
+            </div>
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+            </div>
+          </form>
+          <div id="successMessage" class="alert alert-success mt-4 d-none" role="alert">
+            Message sent successfully! Thank you for contacting us.
+          </div>
+          <div id="errorMessage" class="alert alert-danger mt-4 d-none" role="alert">
+            There was an error sending your message. Please try again later.
+          </div>
         </div>
+      </div>
     </div>
-{% endblock %} 
+  </div>
+</div>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    fetch('{% url "contact_submit" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify({ name: name, email: email, message: message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('successMessage').classList.remove('d-none');
+            document.getElementById('errorMessage').classList.add('d-none');
+            document.getElementById('contactForm').reset();
+        } else {
+            document.getElementById('errorMessage').classList.remove('d-none');
+            document.getElementById('successMessage').classList.add('d-none');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('errorMessage').classList.remove('d-none');
+        document.getElementById('successMessage').classList.add('d-none');
+    });
+  });
+</script>
+{% endblock %}

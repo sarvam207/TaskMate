@@ -1,0 +1,56 @@
+Dark gradient backgrounds
+body {
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  color: #eaeaea;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background: rgba(20, 20, 20, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, #bb86fc, #03dac6);
+  -webkit-text-fill-color: transparent;
+}
+
+/* Cards / Tables */
+.card, .table {
+  background: rgba(30, 30, 30, 0.95);
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+/* Buttons */
+.btn {
+  border-radius: 30px;
+  padding: 0.4rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #bb86fc, #6200ea);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #6200ea, #3700b3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(98, 0, 234, 0.5);
+}
+
+/* Table headers */
+.table thead th {
+  color: #bb86fc;
+  font-weight: 600;
+}
+
+/* Smooth animations */
+*[data-aos] {
+  opacity: 0;
+  transition-property: transform, opacity;
+}
