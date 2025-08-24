@@ -6,6 +6,7 @@ It allows users to create, update, and manage daily tasks.
 This project is configured to run on [Railway](https://railway.app) with PostgreSQL and Whitenoise for static file handling.
 
 Check out live:
+
 [TaskMate By Sarvam](https://taskmatebysarvam.up.railway.app/)
 ---
 
