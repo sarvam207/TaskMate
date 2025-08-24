@@ -34,6 +34,7 @@ DEBUG = env('DJANGO_DEBUG')
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-19868.up.railway.app",
+    "https://taskmatebysarvam.up.railway.app/"
 ]
 
 
