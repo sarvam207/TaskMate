@@ -5,6 +5,8 @@ It allows users to create, update, and manage daily tasks.
 
 This project is configured to run on [Railway](https://railway.app) with PostgreSQL and Whitenoise for static file handling.
 
+Check out live:
+[TaskMate By Sarvam](https://taskmatebysarvam.up.railway.app/)
 ---
 
 ##  Features
@@ -105,5 +107,10 @@ CSRF_TRUSTED_ORIGINS = ["https://your-app-name.up.railway.app"]
 
 3. Database Connection Refused
 Make sure PostgreSQL is added in Railway
-
 Copy the Railway DATABASE_URL into your Django settings
+
+## Author
+
+**Sarvam Saroha**
+🔗 [LinkedIn](https://linkedin.com/in/sarvamsaroha) |
+ [GitHub](https://github.com/sarvam207)
