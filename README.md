@@ -5,9 +5,15 @@ It allows users to create, update, and manage daily tasks.
 
 This project is configured to run on [Railway](https://railway.app) with PostgreSQL and Whitenoise for static file handling.
 
-Check out live:
-
+Check out live demo at:
 [TaskMate By Sarvam](https://taskmatebysarvam.up.railway.app/)
+
+Use the following credentials to login:
+
+Username: Demo
+
+Password: testuser@1
+
 ---
 
 ##  Features
@@ -113,5 +119,5 @@ Copy the Railway DATABASE_URL into your Django settings
 ## Author
 
 **Sarvam Saroha**
-🔗 [LinkedIn](https://linkedin.com/in/sarvamsaroha) |
- [GitHub](https://github.com/sarvam207)
+[LinkedIn](https://linkedin.com/in/sarvamsaroha) |
+[GitHub](https://github.com/sarvam207)
